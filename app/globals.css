@@ -1,26 +1,207 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* raw palette */
+  --canvas: #ebf5ff; /* page background */
+  --surface: #fafdff; /* cards, panels */
+  --white: #ffffff;
+  --mist: #f6f7f8;
+  --ink: #0a0d12; /* headlines, primary text, never pure black */
+  --charcoal: #181d27; /* filled buttons, trip ticket */
+  --graphite: #535862; /* body text */
+  --fog: #93979f; /* muted text */
+  --brand: #0099ff; /* highlight words, dots, links */
+  --iris: #0069e0; /* outlines and focus only, never a fill */
+  --lavender: #f1e6ff;
+  --mint: #d3f6e3;
+  --powder: #cce7ff;
+  --peach: #ffd1b8;
+  --solar: #fff2be;
+  --paper: #ece4d6;
+  --journal-ink: #1e2ab4;
+  --msg-blue: #1a5cff;
+  --hairline: rgba(10, 13, 18, 0.12);
+  --danger: #c4372b;
+
+  --background: var(--canvas);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--white);
+  --popover-foreground: var(--ink);
+  --primary: var(--charcoal);
+  --primary-foreground: var(--white);
+  --secondary: var(--white);
+  --secondary-foreground: var(--ink);
+  --muted: var(--mist);
+  --muted-foreground: var(--graphite);
+  --accent: var(--powder);
+  --accent-foreground: var(--ink);
+  --destructive: var(--danger);
+  --border: var(--hairline);
+  --input: var(--hairline);
+  --ring: var(--iris);
+
+  --radius: 1rem; /* 16px */
 }
 
 @theme inline {
+  /* ----- colours: usable as bg-canvas, text-graphite, border-hairline ... */
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-white: var(--white);
+  --color-mist: var(--mist);
+  --color-ink: var(--ink);
+  --color-charcoal: var(--charcoal);
+  --color-graphite: var(--graphite);
+  --color-fog: var(--fog);
+  --color-brand: var(--brand);
+  --color-iris: var(--iris);
+  --color-lavender: var(--lavender);
+  --color-mint: var(--mint);
+  --color-powder: var(--powder);
+  --color-peach: var(--peach);
+  --color-solar: var(--solar);
+  --color-paper: var(--paper);
+  --color-journal-ink: var(--journal-ink);
+  --color-msg-blue: var(--msg-blue);
+  --color-hairline: var(--hairline);
+  --color-danger: var(--danger);
+
+  /* shadcn semantic colours */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* ----- radii: rounded-card, rounded-image, rounded-input */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: var(--radius);
+  --radius-xl: 1.5rem;
+  --radius-input: 1rem; /* 16px */
+  --radius-image: 1.5rem; /* 24px */
+  --radius-card: 2rem; /* 32px: cards, tiles */
+  /* pills: use rounded-full */
+
+  /* ----- fonts: wired in layout.tsx with next/font */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display:
+    var(--font-display-face), var(--font-geist-sans), ui-sans-serif, system-ui,
+    sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* ----- type scale: text-hero, text-display, text-heading-lg ... */
+  --text-hero: clamp(3.5rem, 10vw, 9.25rem);
+  --text-hero--line-height: 1.05;
+  --text-hero--letter-spacing: -0.02em;
+  --text-display: clamp(2.5rem, 6vw, 4.5rem);
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.02em;
+  --text-heading-lg: 3rem;
+  --text-heading-lg--line-height: 1.17;
+  --text-heading-lg--letter-spacing: -0.02em;
+  --text-heading: 2rem;
+  --text-heading--line-height: 1.25;
+  --text-heading--letter-spacing: -0.02em;
+  --text-heading-sm: 1.5rem;
+  --text-heading-sm--line-height: 1.17;
+  --text-heading-sm--letter-spacing: -0.02em;
+  --text-subheading: 1.25rem;
+  --text-subheading--line-height: 1.4;
+  --text-subheading--letter-spacing: -0.01em;
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.33;
+  --text-body-lg--letter-spacing: -0.01em;
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.3;
+  --text-body-sm--letter-spacing: -0.01em;
+
+  /* ----- shadows: shadow-button, drop-shadow-object */
+  --shadow-button: 0 1px 2px rgba(10, 13, 18, 0.8), 0 0 0 1px #0a0d12;
+  --drop-shadow-object: 0 18px 20px rgba(4, 69, 144, 0.22);
+
+  /* ----- motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans font-medium;
+    letter-spacing: -0.005em;
+  }
+
+  /* headings: display font, weight 500 only, tight tracking */
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-medium text-ink;
+    letter-spacing: -0.02em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--iris);
+    outline-offset: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* small uppercase mono label: "01.", "TRIP CARD · DAY 2" */
+@utility mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* rise-and-fade reveal (scroll or load). Add the class, set --i for a stagger */
+@utility reveal {
+  animation: reveal 0.6s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
