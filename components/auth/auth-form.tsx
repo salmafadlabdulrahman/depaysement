@@ -4,8 +4,8 @@ import { useActionState } from "react"
 import { Check } from "lucide-react"
 import { login, signup } from "@/app/(auth)/actions"
 import type { AuthState } from "@/lib/auth/schema"
-import { Field } from "./field"
-import { SubmitButton } from "./submit-button"
+import { Field } from "@/components/ui/field"
+import { SubmitButton } from "@/components/ui/submit-button"
 
 const copy = {
   login: {
