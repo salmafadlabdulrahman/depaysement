@@ -196,6 +196,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .float {
+    animation: none !important;
+  }
+
   *,
   *::before,
   *::after {
@@ -203,5 +207,21 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* slow ambient float for hero objects. Set --float-delay per item */
+@utility float {
+  animation: float 8s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
   }
 }
